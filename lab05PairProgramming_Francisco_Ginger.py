@@ -68,10 +68,35 @@ def grayscale( im ):
             # in the image using putpixel()
             im.putpixel( (x,y) , (color, color, color) )
 
+def binarize( im, thresh, startx, starty, endx, endy ):
+    ''' change colors to white or black using a threshold '''
+    # Find the dimensions of the image
+    (width, height) = im.size
+    # Loop over the entire image
+    if thresh > 255 or thresh < 0:
+        print("Pick a number between 0 and 255")
+    elif startx < 0 or startx > width or endx < 0 or endx > width or starty < 0 or starty > height or endy < 0 or endy > height:
+        print("Pick a new set of parameters within the images dimensions")
+    else:
+        for x in range( startx, endx ):
+            for y in range( starty, endy ):
+                (red, green, blue, opaqueness) = im.getpixel((x, y))
+                # Complete this function by adding your lines of code here
+                # You need to calculate the new pixel values and then to change them
+                red = int(red * 0.21)
+                green = int(green * 0.72)
+                blue = int(blue * 0.07)
+                luminence = red + green + blue
+                if(luminence < thresh):
+                     im.putpixel( (x,y) , (0, 0, 0))
+                else:
+                    im.putpixel( (x,y), (255, 255, 255))
+
 
 # invert(bear)
 # invert_block(bear)
 
 # Allows the image to be modified and saved everytime it is ran
-grayscale(bear)
+# grayscale(bear)
+binarize(bear, int(input()), int(input()), int(input()), int(input()), int(input()))
 bear.save("tmp_Francisco_Ginger.png") # create/overwrite tmp_Name.png with current image
