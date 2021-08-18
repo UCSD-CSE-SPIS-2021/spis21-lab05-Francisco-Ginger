@@ -1,3 +1,4 @@
+
 # Imports the Image portion form the PIL image library in Python.
 from PIL import Image
 
@@ -19,7 +20,7 @@ for i in range(100):
 
 
 def invert( im ):
-    ''' Invert the colors in the input image, im '''
+    ''' Invert the colors in the input image to grayscale, im '''
     # Find the dimensions of the image
     (width, height) = im.size
     # Loop over the entire image
@@ -50,12 +51,27 @@ def invert_block( im ):
             # in the image using putpixel()
             im.putpixel( (x,y) , (red, green, blue) )
 
-invert(bear)
-invert_block(bear)
+def grayscale( im ):
+    ''' change colors to grayscale using luminescence '''
+    # Find the dimensions of the image
+    (width, height) = im.size
+    # Loop over the entire image
+    for x in range( width ):
+        for y in range( height ):
+            (red, green, blue, opaqueness) = im.getpixel((x, y))
+            # Complete this function by adding your lines of code here.
+            # You need to calculate the new pixel values and then to change them
+            red = int(red * 0.21)
+            green = int(green * 0.72)
+            blue = int(blue * 0.07)
+            color = red + green + blue
+            # in the image using putpixel()
+            im.putpixel( (x,y) , (color, color, color) )
+
+
+# invert(bear)
+# invert_block(bear)
 
 # Allows the image to be modified and saved everytime it is ran
-bear.save("tmp_Francisco.png") # create/overwrite tmp_Name.png with current image
-
-invert(batman)
-batman.save("tmp_batman.png")
-
+grayscale(bear)
+bear.save("tmp_Francisco_Ginger.png") # create/overwrite tmp_Name.png with current image
