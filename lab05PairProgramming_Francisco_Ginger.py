@@ -98,5 +98,15 @@ def binarize( im, thresh, startx, starty, endx, endy ):
 
 # Allows the image to be modified and saved everytime it is ran
 # grayscale(bear)
-binarize(bear, int(input()), int(input()), int(input()), int(input()), int(input()))
+print("Type in a threshold value to binarize.")
+thresh = int(input())
+print("Type in a starting x value for the dimensions to binarize.")
+startx = int(input())
+print("Type in a starting y value for the dimensions to binarize.")
+starty = int(input())
+print("Type in a ending x value for the dimensions to binarize.")
+endx = int(input())
+print("Type in a ending y value for the dimensions to binarize.")
+endy = int(input())
+binarize(bear, thresh, startx, starty, endx, endy)
 bear.save("tmp_Francisco_Ginger.png") # create/overwrite tmp_Name.png with current image
