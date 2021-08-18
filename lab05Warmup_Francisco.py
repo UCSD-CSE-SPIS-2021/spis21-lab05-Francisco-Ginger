@@ -39,8 +39,8 @@ def invert_block( im ):
     # Find the dimensions of the image
     (width, height) = im.size
     # Loop over the entire image
-    for x in range( width // 2):
-        for y in range( height // 2 ):
+    for x in range(width // 2,  width):
+        for y in range( height // 2 , height):
             (red, green, blue, opaqueness) = im.getpixel((x, y))
             # Complete this function by adding your lines of code here.
             # You need to calculate the new pixel values and then to change them
