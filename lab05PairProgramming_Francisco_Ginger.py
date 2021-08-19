@@ -117,8 +117,16 @@ def mirrorHoriz( im ):
 def flipVert(im):
   '''Flip the image so the bottom is at the top and top is at the bottom'''
   (width, height) = im.size
-  for x in range(width):
-    for y in range
+  for x in range( width ):
+        for y in range( height // 2):
+          #creates temp for opposite pixel
+            (redtemp, greentemp, bluetemp, opaqueness) = im.getpixel((x, height - 1 - y))
+          #color at (x, y)
+            (red, green, blue, opacity) = im.getpixel((x, y))
+          #sets opposite pixel to color at (x, y)
+            im.putpixel( (x, height - y - 1) , (red, green, blue))
+          #sets pixel to color on bottom
+            im.putpixel((x, y), (redtemp, greentemp, bluetemp))
 
 # invert(bear)
 # invert_block(bear)
@@ -137,5 +145,5 @@ def flipVert(im):
 #endy = int(input())
 #binarize(bear, thresh, startx, starty, endx, endy)
 
-mirrorHoriz(bear)
+flipVert(bear)
 bear.save("tmp_Francisco_Ginger.png") # create/overwrite tmp_Name.png with current image
