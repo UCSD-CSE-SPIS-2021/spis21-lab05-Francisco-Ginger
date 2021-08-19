@@ -92,21 +92,50 @@ def binarize( im, thresh, startx, starty, endx, endy ):
                 else:
                     im.putpixel( (x,y), (255, 255, 255))
 
+def mirrorVert( im ):
+    ''' Apply a vertical mirror effect to your image '''
+    # Find the dimensions of the image
+    (width, height) = im.size
+    # Loop over entire width and half of height
+    for x in range( width ):
+        for y in range( height // 2):
+            (red, green, blue, opaqueness) = im.getpixel((x, y))
+            
+            im.putpixel( (x, height - y - 1) , (red, green, blue))
+
+def mirrorHoriz( im ):
+    ''' Apply a horizontal mirror effect to your image '''
+    # Find the dimensions of the image
+    (width, height) = im.size
+    # Loop over entire height and half of width
+    for x in range( width // 2):
+        for y in range( height):
+            (red, green, blue, opaqueness) = im.getpixel((x, y))
+            
+            im.putpixel( (width - x - 1, y) , (red, green, blue))
+
+def flipVert(im):
+  '''Flip the image so the bottom is at the top and top is at the bottom'''
+  (width, height) = im.size
+  for x in range(width):
+    for y in range
 
 # invert(bear)
 # invert_block(bear)
 
 # Allows the image to be modified and saved everytime it is ran
 # grayscale(bear)
-print("Type in a threshold value to binarize.")
-thresh = int(input())
-print("Type in a starting x value for the dimensions to binarize.")
-startx = int(input())
-print("Type in a starting y value for the dimensions to binarize.")
-starty = int(input())
-print("Type in a ending x value for the dimensions to binarize.")
-endx = int(input())
-print("Type in a ending y value for the dimensions to binarize.")
-endy = int(input())
-binarize(bear, thresh, startx, starty, endx, endy)
+# print("Type in a threshold value to binarize.")
+# thresh = int(input())
+#print("Type in a starting x value for the dimensions to binarize.")
+#startx = int(input())
+#print("Type in a starting y value for the dimensions to binarize.")
+#starty = int(input())
+#print("Type in a ending x value for the dimensions to binarize.")
+#endx = int(input())
+#print("Type in a ending y value for the dimensions to binarize.")
+#endy = int(input())
+#binarize(bear, thresh, startx, starty, endx, endy)
+
+mirrorHoriz(bear)
 bear.save("tmp_Francisco_Ginger.png") # create/overwrite tmp_Name.png with current image
