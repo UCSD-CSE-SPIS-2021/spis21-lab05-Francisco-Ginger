@@ -128,22 +128,23 @@ def flipVert(im):
           #sets pixel to color on bottom
             im.putpixel((x, y), (redtemp, greentemp, bluetemp))
 
-# invert(bear)
-# invert_block(bear)
+def scale(im):
+  '''takes image im as parameter and scales it to be half the original size, creates a modified copy of image and RETURNS it'''
+  (width, height) = im.size
+  #creates a new image (in color), with a certain width and height given by tuple
+  new = Image.new('RGB', (width // 2, height // 2))
+  newx = 0
+  newy = 0
+  #loops through entire image but only every other pixel
+  for x in range(width, 2):
+    for y in range(height, 2):
+      (red, green, blue, opacity) = im.getpixel((x,y))
+      new.putpixel((newx, newy), (red, green, blue))
+      newy += 1
+    newx += 1
+  new.show()
+  return new
 
-# Allows the image to be modified and saved everytime it is ran
-# grayscale(bear)
-# print("Type in a threshold value to binarize.")
-# thresh = int(input())
-#print("Type in a starting x value for the dimensions to binarize.")
-#startx = int(input())
-#print("Type in a starting y value for the dimensions to binarize.")
-#starty = int(input())
-#print("Type in a ending x value for the dimensions to binarize.")
-#endx = int(input())
-#print("Type in a ending y value for the dimensions to binarize.")
-#endy = int(input())
-#binarize(bear, thresh, startx, starty, endx, endy)
-
-flipVert(bear)
-bear.save("tmp_Francisco_Ginger.png") # create/overwrite tmp_Name.png with current image
+scale(bear)
+#bear.save("tmp_Francisco_Ginger.png") 
+# create/overwrite tmp_Name.png with current image
