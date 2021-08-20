@@ -1,6 +1,7 @@
 
 # Imports the Image portion form the PIL image library in Python.
 from PIL import Image
+import random
 
 # Creates a new image object by grabbing the file from bear.png and storing it within bear variable.
 bear = Image.open( "bear.png" )
@@ -133,18 +134,51 @@ def scale(im):
   (width, height) = im.size
   #creates a new image (in color), with a certain width and height given by tuple
   new = Image.new('RGB', (width // 2, height // 2))
+  #index of pixel in new image are defined by newx and newy
   newx = 0
-  newy = 0
   #loops through entire image but only every other pixel
-  for x in range(width, 2):
-    for y in range(height, 2):
+  for x in range(0, width-3, 2):
+    #define inside loop because when x increases by 1 y should reset to 0 (start at top of picture)
+    newy = 0
+    for y in range(0, height-3, 2):
       (red, green, blue, opacity) = im.getpixel((x,y))
+      #print("Current new coordinates: " + str(newx) + ", " + str(newy))
       new.putpixel((newx, newy), (red, green, blue))
       newy += 1
     newx += 1
   new.show()
   return new
 
-scale(bear)
-#bear.save("tmp_Francisco_Ginger.png") 
+def blur(im):
+  #groups of 4 pixels
+  #ex: (0,0) (1,0) (0,1) (1,1)
+  #(x,y) are coordinates of upper left corner, in example that's (0,0)
+  #get rgb @ (x,y),(x+1,y),(x,y+1),(x+1,y+1)
+    (width, height) = im.size
+    new = Image.new('RGB', (width, height))
+    for x in range(0, width-2, 2):
+        for y in range(0, height-2,2):
+            (red1, green1, blue1, opacity1) = im.getpixel((x,y))
+            (red2, green2, blue2, opacity2) = im.getpixel((x, y+1))
+            (red3, green3, blue3, opacity3) = im.getpixel((x+1, y))
+            (red4, green4, blue4, opacity4) = im.getpixel((x+1, y+1))
+            red_av = (red1 + red2 + red3 + red4)//4
+            green_av = (green1 + green2 + green3 + green4) // 4
+            blue_av = (blue1 + blue2 + blue3 + blue4) // 4
+            new.putpixel((x,y), (red_av, green_av, blue_av))
+            new.putpixel((x+1,y), (red_av, green_av, blue_av))
+            new.putpixel((x,y+1), (red_av, green_av, blue_av))
+            new.putpixel((x+1,y+1), (red_av, green_av, blue_av))
+    new.show()
+    return new
+   
+
+scale_image = scale(bear)
+scale_image.save("scale2.png")
+#print(scale_image.size)
+
+blur_image = blur(bear)
+blur_image.save("blur.png")
+
+#bear.save("scale.png") 
 # create/overwrite tmp_Name.png with current image
