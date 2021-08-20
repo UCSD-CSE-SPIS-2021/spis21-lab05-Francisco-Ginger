@@ -148,6 +148,9 @@ def scale(im):
     newx += 1
   new.show()
   return new
+#scale_image = scale(bear)
+#scale_image.save("scale2.png")
+#print(scale_image.size)
 
 def blur(im):
   #groups of 4 pixels
@@ -171,14 +174,10 @@ def blur(im):
             new.putpixel((x+1,y+1), (red_av, green_av, blue_av))
     new.show()
     return new
-   
-
-scale_image = scale(bear)
-scale_image.save("scale2.png")
-#print(scale_image.size)
 
 blur_image = blur(bear)
 blur_image.save("blur.png")
+
 
 #bear.save("scale.png") 
 # create/overwrite tmp_Name.png with current image
